@@ -1,4 +1,4 @@
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
+const API_BASE =  process.env.NEXT_PUBLIC_API_URL;
 
 async function fetchApi<T>(endpoint: string, options?: RequestInit): Promise<T> {
     const res = await fetch(`${API_BASE}${endpoint}`, {
@@ -8,7 +8,7 @@ async function fetchApi<T>(endpoint: string, options?: RequestInit): Promise<T> 
             Accept: 'application/json',
             ...options?.headers,
         },
-        next: { revalidate: 60 },
+        cache: "no-store",
     });
 
     if (!res.ok) {
